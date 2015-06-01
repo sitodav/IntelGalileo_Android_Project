@@ -23,6 +23,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
         dbHelper = new Helper(this);
         
         setContentView(R.layout.activity_main);
-        
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //devo popolare lo spinner superiore con la lista degli indirizzi per i quali questo postino (cioè
         //quello associato all'id cablato nell'app) deve effettuare consegna
         
@@ -237,9 +238,8 @@ public class MainActivity extends Activity {
     	ArrayList<HashMap<String,String>> alRes = new ArrayList<HashMap<String,String>>();
     	
     	String querySql = "SELECT NOME_COGNOME, TIPO_CONSEGNA " +
-		"FROM (POSTINI JOIN INDIRIZZI_CONSEGNA ON POSTINI.ID_POSTINO = INDIRIZZI_CONSEGNA.ID_POSTINO) " +
-			"JOIN DESTINATARI ON INDIRIZZI_CONSEGNA.INDIRIZZO = DESTINATARI.INDIRIZZO " +
-		"WHERE POSTINI.ID_POSTINO = ? AND INDIRIZZI_CONSEGNA.INDIRIZZO = ?";
+		"FROM INDIRIZZI_CONSEGNA JOIN DESTINATARI ON INDIRIZZI_CONSEGNA.INDIRIZZO = DESTINATARI.INDIRIZZO " +
+		"WHERE INDIRIZZI_CONSEGNA.ID_POSTINO = ? AND INDIRIZZI_CONSEGNA.INDIRIZZO = ?";
     	
     	String[] queryArgs = {Costanti.ID_POSTINO , indirizzoScelto};
     	
@@ -417,6 +417,7 @@ public class MainActivity extends Activity {
     		int color = (i % 2 == 0) ? getResources().getColor(R.color.giallo) : getResources().getColor(R.color.verde);
     		rowToInsert.setBackgroundColor(color);
     		TextView tvToInsert = new TextView(this);
+    		tvToInsert.setTextColor(getResources().getColor(R.color.black));
     		//creo entry per il nome
     		tvToInsert.setText(el.get("NOME_DESTINATARIO")+"");
     		tvToInsert.setPadding(0, 0, 40, 0);
@@ -424,6 +425,7 @@ public class MainActivity extends Activity {
     		//creo entry per il tipo di consegna
     		tvToInsert = new TextView(this);
     		tvToInsert.setText(el.get("TIPO_CONSEGNA")+"");
+    		tvToInsert.setTextColor(getResources().getColor(R.color.black));
     		rowToInsert.addView(tvToInsert);
     		tbl.addView(rowToInsert);
     		

@@ -14,6 +14,7 @@ import org.json.simple.JSONValue;
 
 import com.example.database.Helper;
 import com.example.testbluetooth.StartingActivity;
+import com.example.testbluetooth.StartingActivity.MioHandler;
 
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,12 +32,14 @@ public class ThreadPerAggiornamentoDbLocale extends Thread
 	String msgToSend;
 	String strUrl;
 	Activity callingActivity;
+	MioHandler handler;
 	
-	public ThreadPerAggiornamentoDbLocale(Activity callingActivity, String urlServer, String msg)
+	public ThreadPerAggiornamentoDbLocale(Activity callingActivity, String urlServer, String msg, MioHandler handler)
 	{
 		this.msgToSend = msg;
 		this.strUrl = urlServer;
 		this.callingActivity = callingActivity;
+		this.handler = handler;
 	}
 	@Override
 	public void run() {
@@ -44,6 +47,8 @@ public class ThreadPerAggiornamentoDbLocale extends Thread
 		//lanciamo http request di tipo post al web service 
 		HttpURLConnection con = null;
 		SQLiteDatabase istanzaDB = null ;
+		
+		
 		
 		try
 		{
@@ -53,7 +58,7 @@ public class ThreadPerAggiornamentoDbLocale extends Thread
 			strUrl += "?" ;
 			strUrl += msgToSend; //i parametri richiesta get vanno in coda all'url
 			Log.e("CHIAVE",strUrl);
-			URL urlObj = new URL(/*strUrl*/"http://192.168.1.7:8081/consegne_giornata?id_postino=A01");
+			URL urlObj = new URL(strUrl);//"http://192.168.1.7:8081/consegne_giornata?id_postino=A01");
 			con = (HttpURLConnection) urlObj.openConnection();
 			con.setFollowRedirects(false);
 			con.setRequestMethod("GET");
@@ -119,6 +124,16 @@ public class ThreadPerAggiornamentoDbLocale extends Thread
 					
 				}
 			}
+			
+//			((StartingActivity)callingActivity).canSwitch = true;
+			
+
+			//avvisiamo la starting activity (affinchè possa far apparire un toast)
+			Message msg1 = handler.obtainMessage();
+			Bundle b = new Bundle();
+			b.putString("test", "tsst");
+			msg1.setData(b);
+			handler.sendMessage(msg1);
 			
 		}
 		catch(Exception ex)

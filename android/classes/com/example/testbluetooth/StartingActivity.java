@@ -7,17 +7,28 @@ import utilities.Costanti;
 import utilities.ThreadPerAggiornamentoDbLocale;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class StartingActivity extends Activity {
+	
+//	public boolean canSwitch = false;
+	public Button btnDone ;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_starting);
+		
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
 		
 		Button downloadBut = (Button)findViewById(R.id.btnDownload);
 		downloadBut.setOnClickListener(new OnClickListener(){
@@ -42,7 +53,8 @@ public class StartingActivity extends Activity {
 				String urlServer = "http://"+ipServer+":"+portaServer+"/consegne_giornata";
 				
 				//avviamo il thread (che quando avrà ricevuto risultato, lo salverà sul db locale)
-				ThreadPerAggiornamentoDbLocale t1 = new ThreadPerAggiornamentoDbLocale(StartingActivity.this,urlServer,msgToServer); //messaggio vuoto
+				ThreadPerAggiornamentoDbLocale t1 = new ThreadPerAggiornamentoDbLocale(StartingActivity.this,urlServer,msgToServer,new MioHandler()); //messaggio vuoto
+				
 				t1.start();
 				
 			}
@@ -50,7 +62,8 @@ public class StartingActivity extends Activity {
 		});
 		
 		
-		Button btnDone = (Button)findViewById(R.id.buttonDone);
+		btnDone = (Button)findViewById(R.id.buttonDone);
+		btnDone.setEnabled(false);
 		btnDone.setOnClickListener(new OnClickListener(){
 
 			//quando clicco su questo bottone, devo avviare l'activity principale
@@ -64,5 +77,19 @@ public class StartingActivity extends Activity {
 			
 		});
 		
+	}
+	
+	
+	
+	public class MioHandler extends Handler
+	{
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			Toast.makeText(StartingActivity.this, "Dati dal webserver arrivati!", Toast.LENGTH_SHORT).show();
+			btnDone.setEnabled(true);
+		}
+	
 	}
 }
