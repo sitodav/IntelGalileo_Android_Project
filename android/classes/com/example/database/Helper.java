@@ -49,7 +49,7 @@ public class Helper extends SQLiteOpenHelper {
 //			db.insert("POSTINI", null, values);
 //			//inserisco 2 indirizzi associati a questo postino
 //			values = new ContentValues();
-//			values.put("INDIRIZZO","II TRAV. STRETTOLA, 5");
+//			values.put("INDIRIZZO","II TRAV., 5");
 //			values.put("ID_POSTINO","A01");
 //			db.insert("INDIRIZZI_CONSEGNA", null, values);
 //			values = new ContentValues();
@@ -58,14 +58,14 @@ public class Helper extends SQLiteOpenHelper {
 //			db.insert("INDIRIZZI_CONSEGNA", null, values);
 //			//inserisco destinatari per il primo degli indirizzi
 //			values = new ContentValues();
-//			values.put("NOME_COGNOME", "DavideSito");
+//			values.put("NOME_COGNOME", "DavidePito");
 //			values.put("TIPO_CONSEGNA","RACCOMANDATA");
-//			values.put("INDIRIZZO","II TRAV. STRETTOLA, 5");
+//			values.put("INDIRIZZO","II TRAV., 5");
 //			db.insert("DESTINATARI",null,values);
 //			values= new ContentValues();
 //			values.put("NOME_COGNOME", "AntonioLuongo");
 //			values.put("TIPO_CONSEGNA","BOLLETTA");
-//			values.put("INDIRIZZO","II TRAV. STRETTOLA, 5");
+//			values.put("INDIRIZZO","II TRAV., 5");
 //			db.insert("DESTINATARI", null, values);
 //			
 	}

@@ -57,8 +57,8 @@ conn.commit();
 curs.execute("INSERT INTO POSTINI VALUES('A01','GIOVANNI','ESPOSITO')");
 curs.execute("INSERT INTO INDIRIZZI_CONSEGNA VALUES('SECONDA TRAVERSA','A01')");
 curs.execute("INSERT INTO INDIRIZZI_CONSEGNA VALUES('PIAZZA NAZIONALE','A01')");
-curs.execute("INSERT INTO DESTINATARI VALUES('DavideSito','STIPENDIO','SECONDA TRAVERSA')");
-curs.execute("INSERT INTO DESTINATARI VALUES('AntonioLuongo','MULTA','SECONDA TRAVERSA')");
+curs.execute("INSERT INTO DESTINATARI VALUES('DavidePito','STIPENDIO','SECONDA TRAV')");
+curs.execute("INSERT INTO DESTINATARI VALUES('AntonioLuongo','MULTA','SECONDA TRAV')");
 conn.commit();
 conn.close();
 #---------------------------------------------------------------------------------------

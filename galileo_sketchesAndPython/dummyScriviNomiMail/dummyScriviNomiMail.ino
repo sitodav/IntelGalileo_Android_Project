@@ -17,7 +17,7 @@ void setup() {
   if(mioFile)
   {
     Serial.println("Scrivo sul file...");
-    mioFile.println( "DavideSito:sitodav@gmail.com\nAntonioLuongo:molotv@gmail.com" );
+    mioFile.println( "DavidePito:molotv@gmail.com\nAntonioLuongo:molotv@gmail.com" );
     mioFile.close();
     Serial.println("Scrittura Effettuata...");  
   }
